@@ -1,102 +1,96 @@
-# 自进化 Agent 演示：评测 → 记忆 → 落地 → 控制
+# 自进化 Agent 演示 v2：评测 → 记忆 → 落地 → 控制
 
-一个零依赖、可一键运行的最小自进化飞轮演示。灵感来自腾讯技术工程
-《一篇讲透 Agent 自进化飞轮怎么搭：评测→记忆→落地→控制》
-（评测→记忆→落地→控制四齿轮方法论）。
+v1（见 `archive/v1-python/`）用 Python + 硬编码规则演示了飞轮**机制**；
+v2 把执行层换成了真正的 AI Agent：Worker 和 Curator 都是跑在
+Pi SDK（`@earendil-works/pi-ai` + `@earendil-works/pi-agent-core` v1.2.0）上的 LLM Agent，
+飞轮每一次"诊断→改进"都经过真实模型的推理。
 
-## 这个演示展示了什么
+任务不变：日期格式标准化 → `YYYY-MM-DD`（与 v1 同题，方便对比）。
 
-一个"笨" Agent（`agent/agent.py`，本体只会按顺序试规则，所有知识都在 Skill 文件里）
-从 v1 的 50% 准确率出发，经过 4 轮"发现失败 → 归因到类别 → 生成规则 → 门控验证"的
-自动循环，进化到 v5 的 100%，且全程零回归。
+## v1 → v2 的变化
 
-以下为 `python3 flywheel/run.py` 的实际运行结果（非虚构）：
+| | v1 | v2 |
+|---|---|---|
+| Worker | Python 硬编码规则函数 | `pi-agent-core` 的 `Agent`，system prompt = 当前 skill |
+| Curator | Python 写死的"追加规则" | 真实模式下由 LLM 重写完整 skill；mock 模式用确定性规则占位 |
+| 模型层 | 无 | `pi-ai` 统一多 provider（`builtinModels()` + `getModel()`） |
+| 评测 | 48 条 | 24 条（省 token：LLM 调用按次计费） |
+| 语言 | Python | TypeScript（Node 22+，零构建，`tsx` 直接跑） |
 
-| 版本 | train 准确率 | val 准确率 | 本轮修复类别 |
-|------|-------------|-----------|--------------|
-| v1   | 50.0%       | 50.0%     | -（基线）    |
-| v2   | 62.5%       | 62.5%     | chinese      |
-| v3   | 75.0%       | 75.0%     | dot          |
-| v4   | 87.5%       | 87.5%     | slash_dmy    |
-| v5   | 100.0%      | 100.0%    | text_month_en|
+## 架构
 
-第 5 轮诊断发现 train 已无失败，飞轮收敛停止。
+```
+                ┌─────────────────────────────────┐
+评测（信号）     │  src/eval.ts：确定性检查器        │  train/val 双 split，
+                │  准确率 + 分类型明细 + 失败样例    │  诊断只用 train
+                └───────────────┬─────────────────┘
+                                ▼
+记忆（积累）     │  skills/v{N}__*.md：版本化 skill  │  Agent 的全部知识只活
+                │  = Agent 的 system prompt        │  在这里，本体保持"笨"
+                └───────────────┬─────────────────┘
+                                ▼
+落地（工程化）   │  门控：val 严格提升 + 零回归才接受  │  拒绝则停转
+                │  CHANGELOG.md + reports/iter_*.json│
+                └───────────────┬─────────────────┘
+                                ▼
+控制（人机协作） │  候选接受前打印规则摘要与门控标准    │  演示自动继续，
+                │  （生产环境此处应人工确认）        │  生产环境需人审
+                └─────────────────────────────────┘
+        ▲                                               │
+        │   src/curator.ts：归因到最差类别 → 生成候选 skill │
+        └───────────────────────────────────────────────┘
 
-## 四齿轮 ↔ 代码映射
+Worker（src/agent.ts）和 Curator 共用同一个 ChatModel 后端（src/model.ts）。
+```
 
-| 飞轮齿轮 | 代码位置 | 做了什么 |
-|---------|---------|---------|
-| 评测（信号） | `flywheel/run.py::evaluate()` | 在 train/val 上跑 Agent，输出准确率与分类型明细 |
-| 记忆（积累） | `skills/v{N}__{category}.md` | 经验沉淀为版本化的 Skill 文件（Markdown + ` ```rule ` 代码块） |
-| 落地（工程化） | 门控逻辑 + `CHANGELOG.md` | val 严格提升 + 零回归才接受；每次变更追加版本日志 |
-| 控制（人机协作） | 【人工确认点】打印 | 候选接受前展示规则 diff 摘要与门控标准（演示中打印后自动继续） |
+## Pi SDK 映射表
 
-两个刻意的设计（来自文章的方法论）：
-
-- **诊断只用 train，验证只用 val**：避免"用同一批数据既找问题又判分"的自欺欺人，
-  对应文章中的"评测集三分法"思想（此处简化为两分）。
-- **门控 = 独立评测 + 回归检查**：候选必须在 val 上严格提升，且之前通过的 val 用例
-  一个都不能挂，否则拒绝并停止飞轮。
+| 角色 | Pi SDK 符号（全部对照 `/tmp/piapi` 的 `.d.ts` 核实，非编造） | 用途 |
+|---|---|---|
+| Agent 本体 | `pi-agent-core` 的 `Agent`（`AgentOptions.streamFn`） | 每个 `complete()` 构造一个新 Agent，system prompt = 当前 skill 版本 |
+| 模型调用 | `Agent.prompt()` → `streamFn` → `pi-ai` 的 `models.streamSimple()` | provider 无关的一次性流式调用 |
+| 模型解析 | `pi-ai/providers/all` 的 `builtinModels()` + `models.getModel(provider, id)` | `PI_MODEL` 格式 `provider/model-id`（如 `anthropic/claude-haiku-4-5`，id 来自 pi-ai 自带目录） |
+| 文本提取 | `pi-ai` 的 `contentText()` | 从 `AssistantMessage` 提取纯文本回复 |
+| 认证 | pi-ai 的环境变量约定 | 无 key 直接 fail-fast，不发起任何网络调用 |
 
 ## 运行方法
 
 ```bash
-cd self-evolving-agent-demo
-python3 flywheel/run.py
+npm install
+npm run typecheck        # 类型检查
+npm run flywheel:mock    # 零成本：一键跑通，验证飞轮机制
 ```
 
-- 仅需 Python 3（只用标准库，零 pip 依赖，单命令运行）。
-- 每次运行自动从 v1 开始（清理上次生成的派生产物），结果可复现。
-- 产物：`reports/iter_*.json`（每轮评测报告）、`CHANGELOG.md`（版本日志）、
-  `skills/v2__*.md`（飞轮生成的 Skill 文件）。
+Mock 模式实测轨迹（可复现）：
 
-## 评测集说明
+| 版本 | train | val | 修复类别 |
+|---|---|---|---|
+| v1 | 50.0% | 50.0% | 中文年月日 |
+| v2 | 66.7% | 66.7% | 日月倒置 |
+| v3 | 83.3% | 83.3% | 英文月份名 |
+| v4 | 100.0% | 100.0% | 收敛 |
 
-`eval/cases.jsonl`：48 条用例，JSON Lines 格式
-`{id, input, expected, split, category, difficulty}`。
+真实模型模式：
 
-- 6 个类别：`iso`（12 条）、`slash_ymd`（12 条）、`slash_dmy`（6 条）、
-  `chinese`（6 条）、`dot`（6 条）、`text_month_en`（6 条）。
-- train/val 各 24 条，且两个 split 都覆盖全部 6 个类别。
-- 难度 1–3 梯度：`iso`/`dot` 多为 1–2，`slash_dmy`/`text_month_en` 含 3。
-- `slash_dmy` 只收无歧义日期（某一段 > 12，如 `25/10/2026`、`10/25/2026`），
-  刻意避开 `05/06/2026` 这类真歧义输入——歧义日期没有唯一正确答案，
-  不应进评测集。
-- v1 的 Skill 只处理 `iso` + `slash_ymd`，故基线恰为 50.0%（24/48 中的一半类别）。
-
-## 文件结构
-
-```
-self-evolving-agent-demo/
-├── README.md                  # 本文件
-├── CHANGELOG.md               # 飞轮运行自动生成/追加的版本日志
-├── eval/
-│   └── cases.jsonl            # 48 条评测用例（train/val）
-├── agent/
-│   └── agent.py               # "笨" Agent：按文件名顺序加载 skills/*.md 并试规则
-├── skills/
-│   ├── v1__initial.md          # 初始 Skill（故意只会 iso + slash_ymd）
-│   └── v2__*.md … v5__*.md    # 飞轮运行自动生成的 Skill（记忆沉淀）
-├── flywheel/
-│   └── run.py                 # 飞轮主循环：评测→诊断→生成候选→门控→版本化
-└── reports/
-    └── iter_*.json            # 飞轮运行自动生成的每轮评测报告
+```bash
+export ANTHROPIC_API_KEY=...          # 或 OPENAI_API_KEY 等 pi-ai 支持的 Key
+export PI_MODEL="anthropic/claude-haiku-4-5"   # 可选，默认即此（便宜）
+npm run flywheel
 ```
 
-## 简化与生产环境的差距（诚实声明）
+- 调用量预估：每轮 train+val 共 24 次短调用 + curator 1 次；约 4 轮 ≈ 100 次调用，
+  用 haiku 级别模型约几美分。
+- 无 Key 时直接报错退出（中文提示），不会发起任何网络调用。
 
-1. **策展人是写死的模板，不是 LLM**：`CURATOR_RULES` 是 6 套手写规则。
-   生产环境应由 LLM 根据诊断结论生成 Diff 式补丁，并做候选多样性筛选。
-2. **门控代替了"独立评测 + 人工确认"**：演示用 val 一次评测代替隔离的独立评测环境；
-   【人工确认点】只打印不阻塞，生产环境必须经人工确认才能上线，
-   且安全边界类变更永不自动放行。
-3. **没有灰度发布与回流**：接受即全量生效。生产环境应先小流量灰度观测，
-   并把线上新失败样本自动回流为下一轮评测种子——这是飞轮"持续转动"的关键，
-   本演示未实现。
-4. **任务本身是玩具**：日期格式标准化是确定性任务，规则完备即 100%。
-   开放式任务需要 LLM-as-Judge、难度梯度评测集、弱评估器偏差校准等，
-   本演示不覆盖。
-5. **记忆治理是简化版**：只有追加式版本化，没有主动遗忘、冲突解决、TTL、
-   来源溯源等治理能力（文章强调"记忆的核心是治理不是存储"）。
-6. **数字只在 48 条用例上成立**：100% 是这 48 条特定用例的结果，
-   不代表泛化能力，不可引申为任何外部基准成绩。
+## 诚实声明
+
+1. **Mock 验证的是飞轮机制，不是模型能力**：`MockChatModel` 是"能力随 skill 文本
+   精确开关"的脚本模拟，轨迹整齐好看；真实 LLM 的轨迹取决于模型本身，
+   v1 的朴素 prompt 下真实模型可能起点更高、也可能在歧义项上反复横跳。
+2. **评测集很小**：24 条、6 类，每类每 split 仅 2 条。100% 只在该集合上成立，
+   不可外推为通用日期解析能力。
+3. **Curator 在真实模式下是"LLM 教 LLM"**：它看到的是失败样例，不是梯度；
+   门控（独立 val + 零回归）是防止"越改越错"的唯一防线，这正是文章强调的
+   "评测可信度高于系统复杂度"。
+4. 生产环境还缺：人工确认卡点、灰度发布、线上回流、Skill 冲突检测——
+   方法论见腾讯技术工程原文《一篇讲透 Agent 自进化飞轮怎么搭》。

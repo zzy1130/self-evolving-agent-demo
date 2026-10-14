@@ -1,28 +1,13 @@
-# Skill v1：日期格式标准化（初始版）
+# Skill v1：日期标准化（初始版）
 
-> 版本：v1 ｜ 日期：2026-10-14 ｜ 状态：基线
->
-> 已知局限（诚实记录）：只处理 ISO（`YYYY-MM-DD`）和斜杠年月日
-> （`YYYY/MM/DD`）两种格式；中文、点分隔、英文月份、歧义斜杠日期
-> 均无法处理——这些失败将由飞轮后续版本修复。
+You convert date strings to YYYY-MM-DD format. Reply with ONLY the date, nothing else.
 
-## 规则 1：ISO 直通
+## 支持的格式
+- ISO日期，如 2026-10-14：已经是标准格式，直接保留。
+- 斜杠年月日，如 2026/10/14：按 年/月/日 顺序解析，月日补零。
+- 点分隔日期，如 2026.10.14：按 年.月.日 顺序解析，月日补零。
 
-```rule
-def parse(s):
-    m = re.fullmatch(r"\s*(\d{4}-\d{2}-\d{2})\s*", s)
-    if m:
-        return m.group(1)
-    return None
-```
-
-## 规则 2：斜杠年月日（YYYY/MM/DD，允许不补零）
-
-```rule
-def parse(s):
-    m = re.fullmatch(r"\s*(\d{4})/(\d{1,2})/(\d{1,2})\s*", s)
-    if m:
-        y, mo, d = m.groups()
-        return f"{y}-{int(mo):02d}-{int(d):02d}"
-    return None
-```
+## 已知局限（诚实声明）
+- 中文的年月日写法暂不支持。
+- 日在月之前的斜杠写法暂不支持。
+- 英文写法的月份暂不支持。

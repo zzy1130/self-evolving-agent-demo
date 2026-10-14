@@ -1,144 +1,154 @@
 {
-  "iteration": 0,
+  "iter": 0,
   "version": 1,
-  "timestamp": "2026-10-14T11:23:10",
-  "fixed_category": null,
-  "gate": null,
-  "decision": "baseline",
   "train": {
     "accuracy": 0.5,
-    "correct": 12,
-    "total": 24,
-    "by_category": {
+    "total": 12,
+    "correct": 6,
+    "perCategory": {
       "iso": {
-        "correct": 6,
-        "total": 6
+        "total": 2,
+        "correct": 2
       },
       "slash_ymd": {
-        "correct": 6,
-        "total": 6
-      },
-      "slash_dmy": {
-        "correct": 0,
-        "total": 3
-      },
-      "chinese": {
-        "correct": 0,
-        "total": 3
+        "total": 2,
+        "correct": 2
       },
       "dot": {
-        "correct": 0,
-        "total": 3
+        "total": 2,
+        "correct": 2
+      },
+      "chinese": {
+        "total": 2,
+        "correct": 0
+      },
+      "slash_dmy": {
+        "total": 2,
+        "correct": 0
       },
       "text_month_en": {
-        "correct": 0,
-        "total": 3
+        "total": 2,
+        "correct": 0
       }
-    }
+    },
+    "failures": [
+      {
+        "id": "v2-013",
+        "input": "2026年10月14日",
+        "got": "2026-14-10",
+        "expected": "2026-10-14",
+        "category": "chinese"
+      },
+      {
+        "id": "v2-014",
+        "input": "2025年1月5日",
+        "got": "2025-05-01",
+        "expected": "2025-01-05",
+        "category": "chinese"
+      },
+      {
+        "id": "v2-017",
+        "input": "14/10/2026",
+        "got": "2026-14-10",
+        "expected": "2026-10-14",
+        "category": "slash_dmy"
+      },
+      {
+        "id": "v2-018",
+        "input": "5/1/2025",
+        "got": "2025-05-01",
+        "expected": "2025-01-05",
+        "category": "slash_dmy"
+      },
+      {
+        "id": "v2-021",
+        "input": "Oct 14, 2026",
+        "got": "2026-14-10",
+        "expected": "2026-10-14",
+        "category": "text_month_en"
+      },
+      {
+        "id": "v2-022",
+        "input": "5 Jan 2025",
+        "got": "2025-05-01",
+        "expected": "2025-01-05",
+        "category": "text_month_en"
+      }
+    ]
   },
   "val": {
     "accuracy": 0.5,
-    "correct": 12,
-    "total": 24,
-    "by_category": {
+    "total": 12,
+    "correct": 6,
+    "perCategory": {
       "iso": {
-        "correct": 6,
-        "total": 6
+        "total": 2,
+        "correct": 2
       },
       "slash_ymd": {
-        "correct": 6,
-        "total": 6
-      },
-      "slash_dmy": {
-        "correct": 0,
-        "total": 3
-      },
-      "chinese": {
-        "correct": 0,
-        "total": 3
+        "total": 2,
+        "correct": 2
       },
       "dot": {
-        "correct": 0,
-        "total": 3
+        "total": 2,
+        "correct": 2
+      },
+      "chinese": {
+        "total": 2,
+        "correct": 0
+      },
+      "slash_dmy": {
+        "total": 2,
+        "correct": 0
       },
       "text_month_en": {
-        "correct": 0,
-        "total": 3
+        "total": 2,
+        "correct": 0
       }
-    }
-  },
-  "val_failures": [
-    {
-      "id": "slash_dmy-04",
-      "input": "03/14/2026",
-      "expected": "2026-03-14",
-      "got": null
     },
-    {
-      "id": "slash_dmy-05",
-      "input": "31/12/2024",
-      "expected": "2024-12-31",
-      "got": null
-    },
-    {
-      "id": "slash_dmy-06",
-      "input": "12/31/2024",
-      "expected": "2024-12-31",
-      "got": null
-    },
-    {
-      "id": "chinese-04",
-      "input": "2026年3月9日",
-      "expected": "2026-03-09",
-      "got": null
-    },
-    {
-      "id": "chinese-05",
-      "input": "2023年7月22日",
-      "expected": "2023-07-22",
-      "got": null
-    },
-    {
-      "id": "chinese-06",
-      "input": "2026年11月30日",
-      "expected": "2026-11-30",
-      "got": null
-    },
-    {
-      "id": "dot-04",
-      "input": "2026.3.9",
-      "expected": "2026-03-09",
-      "got": null
-    },
-    {
-      "id": "dot-05",
-      "input": "2023.07.22",
-      "expected": "2023-07-22",
-      "got": null
-    },
-    {
-      "id": "dot-06",
-      "input": "2026.11.30",
-      "expected": "2026-11-30",
-      "got": null
-    },
-    {
-      "id": "text_month_en-04",
-      "input": "31 December 2024",
-      "expected": "2024-12-31",
-      "got": null
-    },
-    {
-      "id": "text_month_en-05",
-      "input": "Mar 9, 2026",
-      "expected": "2026-03-09",
-      "got": null
-    },
-    {
-      "id": "text_month_en-06",
-      "input": "22 jul 2023",
-      "expected": "2023-07-22",
-      "got": null
-    }
-  ]
+    "failures": [
+      {
+        "id": "v2-015",
+        "input": "2024年12月31日",
+        "got": "2024-31-12",
+        "expected": "2024-12-31",
+        "category": "chinese"
+      },
+      {
+        "id": "v2-016",
+        "input": "2023年7月4日",
+        "got": "2023-04-07",
+        "expected": "2023-07-04",
+        "category": "chinese"
+      },
+      {
+        "id": "v2-019",
+        "input": "31/12/2024",
+        "got": "2024-31-12",
+        "expected": "2024-12-31",
+        "category": "slash_dmy"
+      },
+      {
+        "id": "v2-020",
+        "input": "10/14/2026",
+        "got": "2026-14-10",
+        "expected": "2026-10-14",
+        "category": "slash_dmy"
+      },
+      {
+        "id": "v2-023",
+        "input": "Dec 31, 2024",
+        "got": "2024-31-12",
+        "expected": "2024-12-31",
+        "category": "text_month_en"
+      },
+      {
+        "id": "v2-024",
+        "input": "4 Jul 2023",
+        "got": "2023-04-07",
+        "expected": "2023-07-04",
+        "category": "text_month_en"
+      }
+    ]
+  }
 }

@@ -1,48 +1,24 @@
-{"id": "iso-01", "input": "2026-10-14", "expected": "2026-10-14", "split": "train", "category": "iso", "difficulty": 1}
-{"id": "iso-02", "input": "2025-01-05", "expected": "2025-01-05", "split": "train", "category": "iso", "difficulty": 1}
-{"id": "iso-03", "input": "2024-12-31", "expected": "2024-12-31", "split": "train", "category": "iso", "difficulty": 1}
-{"id": "iso-04", "input": "2026-03-09", "expected": "2026-03-09", "split": "train", "category": "iso", "difficulty": 1}
-{"id": "iso-05", "input": "2023-07-22", "expected": "2023-07-22", "split": "train", "category": "iso", "difficulty": 1}
-{"id": "iso-06", "input": "2026-11-30", "expected": "2026-11-30", "split": "train", "category": "iso", "difficulty": 1}
-{"id": "iso-07", "input": "2022-02-28", "expected": "2022-02-28", "split": "val", "category": "iso", "difficulty": 1}
-{"id": "iso-08", "input": "2027-06-15", "expected": "2027-06-15", "split": "val", "category": "iso", "difficulty": 1}
-{"id": "iso-09", "input": "2021-09-01", "expected": "2021-09-01", "split": "val", "category": "iso", "difficulty": 1}
-{"id": "iso-10", "input": "2026-04-20", "expected": "2026-04-20", "split": "val", "category": "iso", "difficulty": 1}
-{"id": "iso-11", "input": "2025-08-08", "expected": "2025-08-08", "split": "val", "category": "iso", "difficulty": 1}
-{"id": "iso-12", "input": "2024-05-17", "expected": "2024-05-17", "split": "val", "category": "iso", "difficulty": 1}
-{"id": "slash_ymd-01", "input": "2026/10/14", "expected": "2026-10-14", "split": "train", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_ymd-02", "input": "2025/1/5", "expected": "2025-01-05", "split": "train", "category": "slash_ymd", "difficulty": 2}
-{"id": "slash_ymd-03", "input": "2024/12/31", "expected": "2024-12-31", "split": "train", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_ymd-04", "input": "2026/3/9", "expected": "2026-03-09", "split": "train", "category": "slash_ymd", "difficulty": 2}
-{"id": "slash_ymd-05", "input": "2023/07/22", "expected": "2023-07-22", "split": "train", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_ymd-06", "input": "2026/11/30", "expected": "2026-11-30", "split": "train", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_ymd-07", "input": "2022/2/28", "expected": "2022-02-28", "split": "val", "category": "slash_ymd", "difficulty": 2}
-{"id": "slash_ymd-08", "input": "2027/06/15", "expected": "2027-06-15", "split": "val", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_ymd-09", "input": "2021/9/1", "expected": "2021-09-01", "split": "val", "category": "slash_ymd", "difficulty": 2}
-{"id": "slash_ymd-10", "input": "2026/04/20", "expected": "2026-04-20", "split": "val", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_ymd-11", "input": "2025/8/8", "expected": "2025-08-08", "split": "val", "category": "slash_ymd", "difficulty": 2}
-{"id": "slash_ymd-12", "input": "2024/05/17", "expected": "2024-05-17", "split": "val", "category": "slash_ymd", "difficulty": 1}
-{"id": "slash_dmy-01", "input": "25/10/2026", "expected": "2026-10-25", "split": "train", "category": "slash_dmy", "difficulty": 2}
-{"id": "slash_dmy-02", "input": "14/03/2026", "expected": "2026-03-14", "split": "train", "category": "slash_dmy", "difficulty": 2}
-{"id": "slash_dmy-03", "input": "10/25/2026", "expected": "2026-10-25", "split": "train", "category": "slash_dmy", "difficulty": 3}
-{"id": "slash_dmy-04", "input": "03/14/2026", "expected": "2026-03-14", "split": "val", "category": "slash_dmy", "difficulty": 3}
-{"id": "slash_dmy-05", "input": "31/12/2024", "expected": "2024-12-31", "split": "val", "category": "slash_dmy", "difficulty": 2}
-{"id": "slash_dmy-06", "input": "12/31/2024", "expected": "2024-12-31", "split": "val", "category": "slash_dmy", "difficulty": 3}
-{"id": "chinese-01", "input": "2026年10月14日", "expected": "2026-10-14", "split": "train", "category": "chinese", "difficulty": 2}
-{"id": "chinese-02", "input": "2025年1月5日", "expected": "2025-01-05", "split": "train", "category": "chinese", "difficulty": 2}
-{"id": "chinese-03", "input": "2024年12月31日", "expected": "2024-12-31", "split": "train", "category": "chinese", "difficulty": 2}
-{"id": "chinese-04", "input": "2026年3月9日", "expected": "2026-03-09", "split": "val", "category": "chinese", "difficulty": 2}
-{"id": "chinese-05", "input": "2023年7月22日", "expected": "2023-07-22", "split": "val", "category": "chinese", "difficulty": 2}
-{"id": "chinese-06", "input": "2026年11月30日", "expected": "2026-11-30", "split": "val", "category": "chinese", "difficulty": 2}
-{"id": "dot-01", "input": "2026.10.14", "expected": "2026-10-14", "split": "train", "category": "dot", "difficulty": 1}
-{"id": "dot-02", "input": "2025.1.5", "expected": "2025-01-05", "split": "train", "category": "dot", "difficulty": 2}
-{"id": "dot-03", "input": "2024.12.31", "expected": "2024-12-31", "split": "train", "category": "dot", "difficulty": 1}
-{"id": "dot-04", "input": "2026.3.9", "expected": "2026-03-09", "split": "val", "category": "dot", "difficulty": 2}
-{"id": "dot-05", "input": "2023.07.22", "expected": "2023-07-22", "split": "val", "category": "dot", "difficulty": 1}
-{"id": "dot-06", "input": "2026.11.30", "expected": "2026-11-30", "split": "val", "category": "dot", "difficulty": 1}
-{"id": "text_month_en-01", "input": "Oct 14, 2026", "expected": "2026-10-14", "split": "train", "category": "text_month_en", "difficulty": 2}
-{"id": "text_month_en-02", "input": "14 Oct 2026", "expected": "2026-10-14", "split": "train", "category": "text_month_en", "difficulty": 2}
-{"id": "text_month_en-03", "input": "January 5, 2025", "expected": "2025-01-05", "split": "train", "category": "text_month_en", "difficulty": 3}
-{"id": "text_month_en-04", "input": "31 December 2024", "expected": "2024-12-31", "split": "val", "category": "text_month_en", "difficulty": 3}
-{"id": "text_month_en-05", "input": "Mar 9, 2026", "expected": "2026-03-09", "split": "val", "category": "text_month_en", "difficulty": 2}
-{"id": "text_month_en-06", "input": "22 jul 2023", "expected": "2023-07-22", "split": "val", "category": "text_month_en", "difficulty": 3}
+{"id":"v2-001","input":"2026-10-14","expected":"2026-10-14","split":"train","category":"iso","difficulty":1}
+{"id":"v2-002","input":"2025-01-05","expected":"2025-01-05","split":"train","category":"iso","difficulty":1}
+{"id":"v2-003","input":"2024-12-31","expected":"2024-12-31","split":"val","category":"iso","difficulty":1}
+{"id":"v2-004","input":"2023-07-04","expected":"2023-07-04","split":"val","category":"iso","difficulty":1}
+{"id":"v2-005","input":"2026/10/14","expected":"2026-10-14","split":"train","category":"slash_ymd","difficulty":1}
+{"id":"v2-006","input":"2025/1/5","expected":"2025-01-05","split":"train","category":"slash_ymd","difficulty":1}
+{"id":"v2-007","input":"2024/12/31","expected":"2024-12-31","split":"val","category":"slash_ymd","difficulty":1}
+{"id":"v2-008","input":"2023/7/4","expected":"2023-07-04","split":"val","category":"slash_ymd","difficulty":1}
+{"id":"v2-009","input":"2026.10.14","expected":"2026-10-14","split":"train","category":"dot","difficulty":2}
+{"id":"v2-010","input":"2025.1.5","expected":"2025-01-05","split":"train","category":"dot","difficulty":2}
+{"id":"v2-011","input":"2024.12.31","expected":"2024-12-31","split":"val","category":"dot","difficulty":2}
+{"id":"v2-012","input":"2023.7.4","expected":"2023-07-04","split":"val","category":"dot","difficulty":2}
+{"id":"v2-013","input":"2026年10月14日","expected":"2026-10-14","split":"train","category":"chinese","difficulty":2}
+{"id":"v2-014","input":"2025年1月5日","expected":"2025-01-05","split":"train","category":"chinese","difficulty":2}
+{"id":"v2-015","input":"2024年12月31日","expected":"2024-12-31","split":"val","category":"chinese","difficulty":2}
+{"id":"v2-016","input":"2023年7月4日","expected":"2023-07-04","split":"val","category":"chinese","difficulty":2}
+{"id":"v2-017","input":"14/10/2026","expected":"2026-10-14","split":"train","category":"slash_dmy","difficulty":3}
+{"id":"v2-018","input":"5/1/2025","expected":"2025-01-05","split":"train","category":"slash_dmy","difficulty":3}
+{"id":"v2-019","input":"31/12/2024","expected":"2024-12-31","split":"val","category":"slash_dmy","difficulty":3}
+{"id":"v2-020","input":"10/14/2026","expected":"2026-10-14","split":"val","category":"slash_dmy","difficulty":3}
+{"id":"v2-021","input":"Oct 14, 2026","expected":"2026-10-14","split":"train","category":"text_month_en","difficulty":3}
+{"id":"v2-022","input":"5 Jan 2025","expected":"2025-01-05","split":"train","category":"text_month_en","difficulty":3}
+{"id":"v2-023","input":"Dec 31, 2024","expected":"2024-12-31","split":"val","category":"text_month_en","difficulty":3}
+{"id":"v2-024","input":"4 Jul 2023","expected":"2023-07-04","split":"val","category":"text_month_en","difficulty":3}
