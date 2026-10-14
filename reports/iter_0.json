@@ -1,0 +1,144 @@
+{
+  "iteration": 0,
+  "version": 1,
+  "timestamp": "2026-10-14T11:23:10",
+  "fixed_category": null,
+  "gate": null,
+  "decision": "baseline",
+  "train": {
+    "accuracy": 0.5,
+    "correct": 12,
+    "total": 24,
+    "by_category": {
+      "iso": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_ymd": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_dmy": {
+        "correct": 0,
+        "total": 3
+      },
+      "chinese": {
+        "correct": 0,
+        "total": 3
+      },
+      "dot": {
+        "correct": 0,
+        "total": 3
+      },
+      "text_month_en": {
+        "correct": 0,
+        "total": 3
+      }
+    }
+  },
+  "val": {
+    "accuracy": 0.5,
+    "correct": 12,
+    "total": 24,
+    "by_category": {
+      "iso": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_ymd": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_dmy": {
+        "correct": 0,
+        "total": 3
+      },
+      "chinese": {
+        "correct": 0,
+        "total": 3
+      },
+      "dot": {
+        "correct": 0,
+        "total": 3
+      },
+      "text_month_en": {
+        "correct": 0,
+        "total": 3
+      }
+    }
+  },
+  "val_failures": [
+    {
+      "id": "slash_dmy-04",
+      "input": "03/14/2026",
+      "expected": "2026-03-14",
+      "got": null
+    },
+    {
+      "id": "slash_dmy-05",
+      "input": "31/12/2024",
+      "expected": "2024-12-31",
+      "got": null
+    },
+    {
+      "id": "slash_dmy-06",
+      "input": "12/31/2024",
+      "expected": "2024-12-31",
+      "got": null
+    },
+    {
+      "id": "chinese-04",
+      "input": "2026年3月9日",
+      "expected": "2026-03-09",
+      "got": null
+    },
+    {
+      "id": "chinese-05",
+      "input": "2023年7月22日",
+      "expected": "2023-07-22",
+      "got": null
+    },
+    {
+      "id": "chinese-06",
+      "input": "2026年11月30日",
+      "expected": "2026-11-30",
+      "got": null
+    },
+    {
+      "id": "dot-04",
+      "input": "2026.3.9",
+      "expected": "2026-03-09",
+      "got": null
+    },
+    {
+      "id": "dot-05",
+      "input": "2023.07.22",
+      "expected": "2023-07-22",
+      "got": null
+    },
+    {
+      "id": "dot-06",
+      "input": "2026.11.30",
+      "expected": "2026-11-30",
+      "got": null
+    },
+    {
+      "id": "text_month_en-04",
+      "input": "31 December 2024",
+      "expected": "2024-12-31",
+      "got": null
+    },
+    {
+      "id": "text_month_en-05",
+      "input": "Mar 9, 2026",
+      "expected": "2026-03-09",
+      "got": null
+    },
+    {
+      "id": "text_month_en-06",
+      "input": "22 jul 2023",
+      "expected": "2023-07-22",
+      "got": null
+    }
+  ]
+}

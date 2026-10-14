@@ -1,0 +1,75 @@
+{
+  "iteration": 4,
+  "version": 5,
+  "timestamp": "2026-10-14T11:23:10",
+  "fixed_category": "text_month_en",
+  "gate": {
+    "improved": true,
+    "regressions": [],
+    "prev_val_acc": 0.875
+  },
+  "decision": "accepted",
+  "train": {
+    "accuracy": 1.0,
+    "correct": 24,
+    "total": 24,
+    "by_category": {
+      "iso": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_ymd": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_dmy": {
+        "correct": 3,
+        "total": 3
+      },
+      "chinese": {
+        "correct": 3,
+        "total": 3
+      },
+      "dot": {
+        "correct": 3,
+        "total": 3
+      },
+      "text_month_en": {
+        "correct": 3,
+        "total": 3
+      }
+    }
+  },
+  "val": {
+    "accuracy": 1.0,
+    "correct": 24,
+    "total": 24,
+    "by_category": {
+      "iso": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_ymd": {
+        "correct": 6,
+        "total": 6
+      },
+      "slash_dmy": {
+        "correct": 3,
+        "total": 3
+      },
+      "chinese": {
+        "correct": 3,
+        "total": 3
+      },
+      "dot": {
+        "correct": 3,
+        "total": 3
+      },
+      "text_month_en": {
+        "correct": 3,
+        "total": 3
+      }
+    }
+  },
+  "val_failures": []
+}
