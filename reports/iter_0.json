@@ -2,9 +2,9 @@
   "iter": 0,
   "version": 1,
   "train": {
-    "accuracy": 0.5,
+    "accuracy": 0.5833333333333334,
     "total": 12,
-    "correct": 6,
+    "correct": 7,
     "perCategory": {
       "iso": {
         "total": 2,
@@ -28,58 +28,51 @@
       },
       "text_month_en": {
         "total": 2,
-        "correct": 0
+        "correct": 1
       }
     },
     "failures": [
       {
         "id": "v2-013",
         "input": "2026年10月14日",
-        "got": "2026-14-10",
+        "got": "",
         "expected": "2026-10-14",
         "category": "chinese"
       },
       {
         "id": "v2-014",
         "input": "2025年1月5日",
-        "got": "2025-05-01",
+        "got": "",
         "expected": "2025-01-05",
         "category": "chinese"
       },
       {
         "id": "v2-017",
         "input": "14/10/2026",
-        "got": "2026-14-10",
+        "got": "",
         "expected": "2026-10-14",
         "category": "slash_dmy"
       },
       {
         "id": "v2-018",
         "input": "5/1/2025",
-        "got": "2025-05-01",
+        "got": "",
         "expected": "2025-01-05",
         "category": "slash_dmy"
       },
       {
         "id": "v2-021",
         "input": "Oct 14, 2026",
-        "got": "2026-14-10",
+        "got": "",
         "expected": "2026-10-14",
-        "category": "text_month_en"
-      },
-      {
-        "id": "v2-022",
-        "input": "5 Jan 2025",
-        "got": "2025-05-01",
-        "expected": "2025-01-05",
         "category": "text_month_en"
       }
     ]
   },
   "val": {
-    "accuracy": 0.5,
+    "accuracy": 0.6666666666666666,
     "total": 12,
-    "correct": 6,
+    "correct": 8,
     "perCategory": {
       "iso": {
         "total": 2,
@@ -95,7 +88,7 @@
       },
       "chinese": {
         "total": 2,
-        "correct": 0
+        "correct": 1
       },
       "slash_dmy": {
         "total": 2,
@@ -103,49 +96,35 @@
       },
       "text_month_en": {
         "total": 2,
-        "correct": 0
+        "correct": 1
       }
     },
     "failures": [
       {
         "id": "v2-015",
         "input": "2024年12月31日",
-        "got": "2024-31-12",
+        "got": "",
         "expected": "2024-12-31",
-        "category": "chinese"
-      },
-      {
-        "id": "v2-016",
-        "input": "2023年7月4日",
-        "got": "2023-04-07",
-        "expected": "2023-07-04",
         "category": "chinese"
       },
       {
         "id": "v2-019",
         "input": "31/12/2024",
-        "got": "2024-31-12",
+        "got": "2043-12-31",
         "expected": "2024-12-31",
         "category": "slash_dmy"
       },
       {
         "id": "v2-020",
         "input": "10/14/2026",
-        "got": "2026-14-10",
+        "got": "",
         "expected": "2026-10-14",
         "category": "slash_dmy"
       },
       {
-        "id": "v2-023",
-        "input": "Dec 31, 2024",
-        "got": "2024-31-12",
-        "expected": "2024-12-31",
-        "category": "text_month_en"
-      },
-      {
         "id": "v2-024",
         "input": "4 Jul 2023",
-        "got": "2023-04-07",
+        "got": "2026-10-14",
         "expected": "2023-07-04",
         "category": "text_month_en"
       }
